@@ -22,11 +22,12 @@ pub fn hlt_loop() -> ! {
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    // tty::tty_init(tty::TTYOutputChannel::Serial0);
-    tty::tty_init(tty::TTYOutputChannel::VGA);
+    tty::tty_init(tty::TTYOutputChannel::Serial0);
+    // tty::tty_init(tty::TTYOutputChannel::VGA);
     interrupt::init_intr();
 
-    // x86_64::instructions::interrupts::int3();
+    let ptr = 0xdeadbeaf as *mut u8;
+    unsafe { *ptr = 42; }
 
     println!("Hello World!");
     // println!("Hello World: {}!", 9776);

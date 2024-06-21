@@ -10,6 +10,7 @@ lazy_static! {
         let mut idt = InterruptDescriptorTable::new();
         idt.breakpoint.set_handler_fn(breakpoint_handler);
         idt.double_fault.set_handler_fn(double_fault_handler);
+        idt.page_fault.set_handler_fn(crate::kernel::memory::page_fault_handler);
         idt[InterruptIndex::Timer as u8].set_handler_fn(timer::timer_interrupt_handler);
         idt[InterruptIndex::Keyboard as u8].set_handler_fn(keyboard::keyboard_interrupt_handler);
         idt
